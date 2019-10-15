@@ -5,9 +5,9 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
+from keras.preprocessing import image
 
 import os
-import image
 import numpy as np
 
 batch_size = 32
@@ -21,7 +21,7 @@ model_name = 'keras_trained_model.h5'
 # Get train and test datasets
 PATH = os.getcwd()
  
-train_path = PATH+'/QIDER/train/'
+train_path = PATH+'/QIDER/train'
 train_data = os.listdir(train_path)
 train_data.sort()
 x_train = []
@@ -30,16 +30,17 @@ y_train = []
 for i, folder in enumerate(train_data):
     y = [0, 0, 0, 0, 0, 0, 0]
     y[i] = 1
-    cur_path = train_path+'/'+folder
+    cur_path = train_path+ "/" +folder
     cur_data = os.listdir(cur_path)
     for sample in cur_data:
-        img_path = cur_path+sample
+        img_path = cur_path+ "/" +sample
+        print(sample)
         x = image.load_img(img_path)
         # preprocessing if required
         x_train.append(x)
         y_train.append(y)
 
-test_path = PATH+'/QIDER/test/'
+test_path = PATH+'/QIDER/test'
 test_data = os.listdir(test_path)
 test_data.sort()
 x_test = []
@@ -51,7 +52,7 @@ for i, sample in enumerate(test_data):
     cur_path = train_path+'/'+folder
     cur_data = os.listdir(cur_path)
     for sample in cur_data:
-        img_path = cur_path+sample
+        img_path = cur_path+"/"+sample
         x = image.load_img(img_path)
         # preprocessing if required
         x_test.append(x)
