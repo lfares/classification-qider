@@ -34,10 +34,10 @@ for i, folder in enumerate(train_data):
     cur_data = os.listdir(cur_path)
     for sample in cur_data:
         img_path = cur_path+ "/" +sample
-        print(sample)
         x = image.load_img(img_path)
+        x_array = image.img_to_array(x)
         # preprocessing if required
-        x_train.append(x)
+        x_train.append(x_array)
         y_train.append(y)
 
 test_path = PATH+'/QIDER/test'
@@ -54,10 +54,11 @@ for i, sample in enumerate(test_data):
     for sample in cur_data:
         img_path = cur_path+"/"+sample
         x = image.load_img(img_path)
+        x_array = image.img_to_array(x)
         # preprocessing if required
-        x_test.append(x)
+        x_test.append(x_array)
         y_test.append(y)
-    
+
 # Convert list into numpy array
 x_train = np.array(x_train)
 x_test = np.array(x_test)
