@@ -30,9 +30,14 @@ train_data_gen = image_generator.flow_from_directory(directory=str(data_dir),
                                                      classes = list(CLASS_NAMES))
 
 image_batch, label_batch = next(train_data_gen)
+class_names = sorted(train_data_gen.class_indices.items(), key=lambda pair:pair[1])
+class_names = np.array([key.title() for key, value in class_names])
+print("Class names:", class_names)
 
-model = keras.models.load_model("qider_trained_model_20.h5")
+#model = keras.models.load_model("qider_trained_model_20.h5")
 #model = tf.keras.experimental.load_from_saved_model('qider_trained_model_20.h5', custom_objects={'KerasLayer':hub.KerasLayer})
+model = tf.keras.models.load_model('qider_trained_model_20.h5',custom_objects={'KerasLayer':hub.KerasLayer})
+model.summary()
 print(model.get_config())
 
 predicted_batch = model.predict(image_batch)
@@ -42,7 +47,7 @@ predicted_label_batch = class_names[predicted_id]
 label_id = np.argmax(label_batch, axis=-1)
 plt.figure(figsize=(10,9))
 plt.subplots_adjust(hspace=0.5)
-for n in range(30):
+for n in range(7):
 	plt.subplot(6,5,n+1)
 	plt.imshow(image_batch[n])
 	color = "green" if predicted_id[n] == label_id[n] else "red"
