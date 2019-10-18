@@ -47,11 +47,11 @@ predicted_label_batch = class_names[predicted_id]
 label_id = np.argmax(label_batch, axis=-1)
 plt.figure(figsize=(10,9))
 plt.subplots_adjust(hspace=0.5)
-for n in range(7):
+for n in range(30):
 	plt.subplot(6,5,n+1)
 	plt.imshow(image_batch[n])
 	color = "green" if predicted_id[n] == label_id[n] else "red"
 	plt.title(predicted_label_batch[n].title(), color=color)
 	plt.axis('off')
 	_ = plt.suptitle("Model predictions (green: correct, red: incorrect)")
-	plt.show()
+plt.show()
