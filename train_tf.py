@@ -95,7 +95,13 @@ history = model.fit_generator(train_data_gen, epochs=2,
                               steps_per_epoch=steps_per_epoch,
                               callbacks = [batch_stats_callback])
 
+
 save_dir = os.path.join(os.getcwd(), 'saved_models')
+model_name = 'qider_trained_model.h5'
+# Save model and weights
 if not os.path.isdir(save_dir):
     os.makedirs(save_dir)
-tf.keras.experimental.export_saved_model(model, save_dir)
+model_path = os.path.join(save_dir, model_name)
+model.save(model_path)
+print('Saved trained model at %s ' % model_path)
+
